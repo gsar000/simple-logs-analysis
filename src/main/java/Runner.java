@@ -10,21 +10,23 @@ import java.util.TreeMap;
 public class Runner {
 
     public static void main(String[] args) {
-        File[] files = new File("./src/main/resources/logs/").listFiles();
+        File[] files = new File("./src/main/resources/logs").listFiles();
+
+        if (files == null || files.length == 0) {
+            System.out.println("Files with logs weren't found");
+            System.exit(0);
+        }
+
         LinkedList<LogRecord> logRecords = new LinkedList<>();
 
         FilterParams filterParams = Reader.readFilterParams();
         GroupParams groupParams = Reader.readGroupParams();
         String outputFilePath = Reader.readOutputFilePath();
 
-        if (files != null) {
-            for (File file : files) {
-                logRecords.addAll(Parser.getLogsFromFile(file));
-            }
-        } else {
-            System.out.println("Files with logs weren't found");
-            System.exit(0);
+        for (File file : files) {
+            logRecords.addAll(Parser.getLogsFromFile(file));
         }
+
 
         LinkedList<LogRecord> filteredRecords = Filter.getFilteredRecords(logRecords, filterParams);
 
