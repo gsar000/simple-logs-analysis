@@ -1,0 +1,15 @@
+.classpath
+.project
+.settings
+*.log
+target
+
+
+#Ignore IntelliJ project files
+######################
+.idea/**/*
+.idea/*
+.idea
+*.iml
+*ide-plugin.xml
+ajcore*
